@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <!--print the page or section title with page having priority-->
+  <title>How to process payments on Shibarium Network</title>
+  <link rel="stylesheet" href="/main.css">
+
+  <!-- Whatsapp -->
+  <script src="https://static.elfsight.com/platform/platform.js" data-use-service-core defer></script>
+  <div class="elfsight-app-1691980b-a6f5-48eb-beff-cc42d34b5361" data-elfsight-app-lazy></div>
+
+</head>
+
+<body>
+  <!-- Header -->
+  <div class="header navbar bg-base-100 flex justify-between show">
+    <div class="navbar-start">
+      <div class="dropdown">
+        <div tabindex="0" role="button" class="btn btn-ghost lg:hidden btn-resonsive-menu">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
+        </div>
+        <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] shadow bg-base-100 flex flex-col h-screen">
+          <li class="flex-1 h-1/5"><a class="m-auto" href="/">Home</a></li>
+          <li class="flex-1 h-1/5"><a class="m-auto" href="#team">Team</a></li>
+          <li class="flex-1 h-1/5"><a class="m-auto" href="#portfolio">Portfolio</a></li>
+          <li class="flex-1 h-1/5"><a class="m-auto" href="#services">Services</a></li>
+          <li class="flex-1 h-1/5"><a class="m-auto" href="#contact-us">Contact Us</a></li>
+          <li class="flex-1 h-1/5"><a class="m-auto" href="/blog">Blog</a></li>
+        </ul>
+      </div>
+      <a
+      data-sveltekit-preload-data=""
+      href="/"
+      aria-current="page"
+      aria-label="daisyUI"
+      class="flex-0 btn btn-ghost gap-1 px-2 md:gap-2"
+      data-svelte-h="svelte-dlyygu"
+      >
+
+      <img src="/img/logo.jpg" class="h-10 w-auto" />
+      <span class="font-title text-base-content text-lg md:text-2xl"
+        >Mars Geeks</span
+      ></a
+      >
+    </div>
+
+    
+    <div class="navbar-center hidden lg:flex">
+      <ul class="menu menu-horizontal px-1">
+        <li><a href="/">Home</a></li>
+        <li><a href="#team">Team</a></li>
+        <li><a href="#portfolio">Portfolio</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#contact-us">Contact Us</a></li>
+        <li><a href="/blog">Blog</a></li>
+      </ul>
+    </div>
+
+    <label class="flex cursor-pointer gap-2" style="display: none;">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M1 12h2M21 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/></svg>
+      <input type="checkbox" class="toggle theme-controller" id="themeToggle" data-toggle-theme="dark,winter" data-act-class="ACTIVECLASS" />
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+    </label>
+  </div>
+  <!--/Header-->
+
+  <!--Header spacer-->
+  <div class="h-20"></div>
+
+  <!--Content-->
+  <section class="section flex justify-center">
+    <div class="container w-full">
+      
+
+<p>Reading time: 7 min</p>
+<br>
+<main class="blog-content prose">
+  <h1 id="how-to-process-payments-on-shibarium-network-on-node-js">How to process payments on Shibarium Network on Node.js</h1>
+<p><img src="http://cryptodev.com/blog/how-to-process-payments-on-shibarium-network/shib-logo-2x.png" alt="Shibarium Logo" /></p>
+<p>So, you have your project, and you're eager to start receiving those sweet little tokens, huh?</p>
+<p>The first thing to know is that the Shibarium Layer 2 Blockchain is a fork of the Polygon project (according to some sources on their Discord, as the source code is still private). It operates on the <a href="https://ethereum.org/en/developers/docs/evm/">EVM</a>. All EVM blockchains use the same API for compatibility, although there might be some custom endpoints on paid API providers.</p>
+<p>While researching how to accept payments or receive tokens, I discovered there are actually several ways to achieve this. In this article, we will review each method and analyse their adtanvages and disadvantages. If you wish to skip ahead to the selected solution click <a href="http://cryptodev.com/blog/how-to-process-payments-on-shibarium-network/www.todo.com">here</a>.</p>
+<p>There are a multitude of reasons why a user would transfer tokens to your DApp, but some of the most common are: 1) you are selling goods, and 2) your user has a balance and wants to deposit (as seen in games). In my case I want my users to have a balance and be able to deposit and withdraw, but it shouldn't be too complex to adapt these ideas to a different use case.</p>
+<p>Note that for all examples the client need to <a href="https://www.youtube.com/watch?v=RQk-Q_hNpkE">add shibarium network to their Metamask</a> first.</p>
+<h2 id="let-the-client-notify-you-when-the-payment-is-done">Let the client notify you when the payment is done</h2>
+<p><img src="http://cryptodev.com/blog/how-to-process-payments-on-shibarium-network/client-notif-payment-done-diag.png" alt="Diagram" /></p>
+<p>As shown in the diagram this method depends on the server creating and tracking invoices and the client to be able to report back the transaction id to the server after the transaction is confirmed. </p>
+<p>The problem with this method is that the client App is responsible to report back the Tx Id to the server. Which means that our App must be connected to the user's wallet like in Metamask. If the user wants to use a different wallet to send us tokens, our App won't have access to the transaction Id.</p>
+<p>On the other hand if the app actually makes the transaction and then there is an error, a system to &quot;recover&quot; transfers should be implemented.</p>
+<p>Pros:</p>
+<ul>
+<li>Simple server implementation</li>
+<li>Small amount of calls to the Shibarium RPC endpoint</li>
+<li>Works for both payments and deposits</li>
+</ul>
+<p>Cons:</p>
+<ul>
+<li>Only works by connecting Metamask</li>
+<li>Only works in Web</li>
+<li>A system to recover from errors should be implemented</li>
+</ul>
+<p>I've seen this implementation on several payment gateways, but for me the disadvantage of just being able to use metamask on web was the no go.</p>
+<h2 id="monitor-transaction-count-on-addresses">Monitor transaction count on addresses</h2>
+<p>This idea suggested by chatGPT also seems interesting.</p>
+<pre data-lang="js" style="background-color:#2b303b;color:#c0c5ce;" class="language-js "><code class="language-js" data-lang="js"><span style="color:#b48ead;">const </span><span style="color:#bf616a;">Web3 </span><span>= </span><span style="color:#96b5b4;">require</span><span>(&#39;</span><span style="color:#a3be8c;">web3</span><span>&#39;);
+</span><span>
+</span><span style="color:#65737e;">// Replace &#39;YOUR_NODE_URL&#39; with the URL of your Ethereum node or Infura endpoint
+</span><span style="color:#b48ead;">const </span><span style="color:#bf616a;">web3 </span><span>= new Web3(&#39;</span><span style="color:#a3be8c;">YOUR_NODE_URL</span><span>&#39;);
+</span><span>
+</span><span style="color:#65737e;">// Replace &#39;ADDRESSES_TO_MONITOR&#39; with an array of Ethereum addresses you want to monitor
+</span><span style="color:#b48ead;">const </span><span style="color:#bf616a;">addressesToMonitor </span><span>= [&#39;</span><span style="color:#a3be8c;">0x123...</span><span>&#39;, &#39;</span><span style="color:#a3be8c;">0x456...</span><span>&#39;, &#39;</span><span style="color:#a3be8c;">0x789...</span><span>&#39;];
+</span><span>
+</span><span style="color:#65737e;">// Function to check for deposits
+</span><span style="color:#b48ead;">async function </span><span style="color:#8fa1b3;">checkForDeposits</span><span>() {
+</span><span>  </span><span style="color:#b48ead;">try </span><span>{
+</span><span>    </span><span style="color:#65737e;">// Loop through each address to check for transactions
+</span><span>    </span><span style="color:#b48ead;">for </span><span>(</span><span style="color:#b48ead;">const </span><span style="color:#bf616a;">address </span><span>of </span><span style="color:#bf616a;">addressesToMonitor</span><span>) {
+</span><span>      </span><span style="color:#b48ead;">const </span><span style="color:#bf616a;">transactionCount </span><span>= </span><span style="color:#b48ead;">await </span><span style="color:#bf616a;">web3</span><span>.</span><span style="color:#bf616a;">eth</span><span>.</span><span style="color:#8fa1b3;">getTransactionCount</span><span>(</span><span style="color:#bf616a;">address</span><span>);
+</span><span>
+</span><span>      </span><span style="color:#65737e;">// If there are new transactions since the last check
+</span><span>      </span><span style="color:#b48ead;">if </span><span>(</span><span style="color:#bf616a;">transactionCount </span><span>&gt; </span><span style="color:#d08770;">0</span><span>) {
+</span><span>        </span><span style="color:#ebcb8b;">console</span><span>.</span><span style="color:#96b5b4;">log</span><span>(`</span><span style="color:#a3be8c;">Deposits found for address ${</span><span style="color:#bf616a;">address</span><span style="color:#a3be8c;">}</span><span>`);
+</span><span>
+</span><span>        </span><span style="color:#65737e;">// You can further process the transactions or trigger additional actions here
+</span><span>
+</span><span>        </span><span style="color:#65737e;">// Update the last checked transaction count
+</span><span>        </span><span style="color:#65737e;">// (This is a simple example; in a production environment, you may want to store this information persistently)
+</span><span>        </span><span style="color:#65737e;">// lastCheckedTransactions[address] = transactionCount;
+</span><span>      }
+</span><span>    }
+</span><span>  } </span><span style="color:#b48ead;">catch </span><span>(</span><span style="color:#bf616a;">error</span><span>) {
+</span><span>    </span><span style="color:#ebcb8b;">console</span><span>.</span><span style="color:#96b5b4;">error</span><span>(&#39;</span><span style="color:#a3be8c;">Error:</span><span>&#39;, </span><span style="color:#bf616a;">error</span><span>);
+</span><span>  }
+</span><span>}
+</span><span>
+</span><span style="color:#65737e;">// Set an interval to periodically check for deposits (adjust the interval based on your needs)
+</span><span style="color:#96b5b4;">setInterval</span><span>(</span><span style="color:#bf616a;">checkForDeposits</span><span>, </span><span style="color:#d08770;">60000</span><span>); </span><span style="color:#65737e;">// Check every 1 minute
+</span></code></pre>
+<p>Here we would need to have the original transaction count (probably 0) of each address in our database. And track down changes on its count.</p>
+<p>One idea that comes to mind is to monitor our unique deposit address. We would know a deposit has been made, and by checking the sender we could mark the sender's invoice as paid automatically. Thus freeing the client from reporting back the transaction Id to the server.</p>
+<p>In the case we use different deposit addresses for each invoice. We could temporarily track pending invoices addresses until paid or timeout. This comes with the cost of implementing a timeout system to avoid tracking unpaid invoices forever tho. Another problem could be that we could end up tracking hundreds of individual addresses but you wish you had that problem xD.</p>
+<p>In my case this wasn't a &quot;suitable&quot; solution since I'm using an individual deposit address for each user, so tracking every user's address every minute didn't sound very scalable to me. We are devs so we like complex solutions for imaginary scalable problems ;).</p>
+<h2 id="subscribe-to-a-contract-s-events">Subscribe to a Contract's events</h2>
+<p>Here we could listen for all &quot;deposit&quot; events on a contract or we could add filter to just listen to specific addresses.</p>
+<pre data-lang="js" style="background-color:#2b303b;color:#c0c5ce;" class="language-js "><code class="language-js" data-lang="js"><span style="color:#b48ead;">const </span><span style="color:#bf616a;">Web3 </span><span>= </span><span style="color:#96b5b4;">require</span><span>(&#39;</span><span style="color:#a3be8c;">web3</span><span>&#39;);
+</span><span>
+</span><span style="color:#65737e;">// Replace &#39;YOUR_NODE_URL&#39; with the URL of your Ethereum node or Infura endpoint
+</span><span style="color:#b48ead;">const </span><span style="color:#bf616a;">web3 </span><span>= new Web3(&#39;</span><span style="color:#a3be8c;">YOUR_NODE_URL</span><span>&#39;);
+</span><span>
+</span><span style="color:#65737e;">// Replace &#39;DEPOSIT_CONTRACT_ADDRESS&#39; with the address of the contract handling deposits
+</span><span style="color:#b48ead;">const </span><span style="color:#bf616a;">depositContractAddress </span><span>= &#39;</span><span style="color:#a3be8c;">0xabc...</span><span>&#39;;
+</span><span>
+</span><span style="color:#65737e;">// Replace &#39;DEPOSIT_EVENT_NAME&#39; with the name of the deposit event in your contract
+</span><span style="color:#b48ead;">const </span><span style="color:#bf616a;">depositEventName </span><span>= &#39;</span><span style="color:#a3be8c;">Deposit</span><span>&#39;;
+</span><span>
+</span><span style="color:#65737e;">// Optional
+</span><span style="color:#65737e;">// Replace &#39;ADDRESSES_TO_MONITOR&#39; with an array of Ethereum addresses you want to monitor
+</span><span style="color:#b48ead;">const </span><span style="color:#bf616a;">addressesToMonitor </span><span>= [&#39;</span><span style="color:#a3be8c;">0x123...</span><span>&#39;, &#39;</span><span style="color:#a3be8c;">0x456...</span><span>&#39;, &#39;</span><span style="color:#a3be8c;">0x789...</span><span>&#39;];
+</span><span>
+</span><span style="color:#65737e;">// Create a contract instance
+</span><span style="color:#b48ead;">const </span><span style="color:#bf616a;">depositContract </span><span>= new web3.eth.Contract([], </span><span style="color:#bf616a;">depositContractAddress</span><span>);
+</span><span>
+</span><span style="color:#65737e;">// Set up an event listener for the Deposit event
+</span><span style="color:#bf616a;">depositContract</span><span>.</span><span style="color:#bf616a;">events</span><span>[</span><span style="color:#bf616a;">depositEventName</span><span>]({
+</span><span>  filter: { _to: </span><span style="color:#bf616a;">addressesToMonitor </span><span>}, </span><span style="color:#65737e;">// Specify the addresses to filter for
+</span><span>})
+</span><span>  .</span><span style="color:#8fa1b3;">on</span><span>(&#39;</span><span style="color:#a3be8c;">data</span><span>&#39;, </span><span style="color:#b48ead;">async </span><span>(</span><span style="color:#bf616a;">event</span><span>) </span><span style="color:#b48ead;">=&gt; </span><span>{
+</span><span>    </span><span style="color:#ebcb8b;">console</span><span>.</span><span style="color:#96b5b4;">log</span><span>(&#39;</span><span style="color:#a3be8c;">Deposit event:</span><span>&#39;, event);
+</span><span>    
+</span><span>    </span><span style="color:#65737e;">// Handle the deposit event, e.g., trigger additional actions
+</span><span>  })
+</span><span>  .</span><span style="color:#8fa1b3;">on</span><span>(&#39;</span><span style="color:#a3be8c;">error</span><span>&#39;, (</span><span style="color:#bf616a;">error</span><span>) </span><span style="color:#b48ead;">=&gt; </span><span>{
+</span><span>    </span><span style="color:#ebcb8b;">console</span><span>.</span><span style="color:#96b5b4;">error</span><span>(&#39;</span><span style="color:#a3be8c;">Error:</span><span>&#39;, </span><span style="color:#bf616a;">error</span><span>);
+</span><span>  });
+</span></code></pre>
+<p>This was probably the worst idea suggested by chatGPT. On my specific case were I have one address per user.</p>
+<p>The first problem is that the addresses to monitor change by +1 every time a user register. So I would need to re-create the listener every new user registration. Another problem that I see is that the address list would eventually grow to tousands of elements (hopefully). But the worst problem is that there is no way to know that we lost elements on our listener. One server reset, network latency, anything could potencially make us lose deposit events, and we have no way ok knowing it since we don't track down the transaction count of each address.</p>
+<p>I don't really see much use of this method for a payment system or gateway.</p>
+<h2 id="inspect-all-block-s-transactions">Inspect all block's transactions</h2>
+<p>To me this one made more sense, I would have tousands (hopefully) of addresses to track and I would like to be multitoken at some point, so the only way is to literally inspect every single transaction on the blockchain on realtime.</p>
+<p>Some would say &quot;but why don't you run your own node?&quot; I don't want to. Its currently very hard since Shibarium source code is still private and most importatly is not necessary. RPC endpoints are open and free. So lets see how to do this.</p>
+<p>Warning: lots of code ahead, lets try to get a rough idea first.</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>for ever
+</span><span>   get the last Shibarium block 
+</span><span>   for each transaction in block 
+</span><span>        if the transaction recipient address belongs to one of our users and has the contract address of the Shiba INU Token
+</span><span>            add the amount to the user&#39;s balance
+</span><span>        
+</span><span>            
+</span></code></pre>
+<p>There are some things I left outside the pseudocode, like:</p>
+<ul>
+<li>ensure that we process blocks in order, starting from the last registered block in our database</li>
+<li>beign able to turn on &amp; off the daemon </li>
+<li>schedule pulling blocks to avoid unecessary calls</li>
+<li>handle errors</li>
+</ul>
+<p>This is the actual code used in &quot;production&quot;</p>
+<pre data-lang="js" style="background-color:#2b303b;color:#c0c5ce;" class="language-js "><code class="language-js" data-lang="js"><span style="color:#b48ead;">import </span><span style="color:#bf616a;">assert </span><span style="color:#b48ead;">from </span><span>&#39;</span><span style="color:#a3be8c;">node:assert</span><span>&#39;
+</span><span style="color:#b48ead;">import </span><span style="color:#bf616a;">Web3 </span><span style="color:#b48ead;">from </span><span>&#39;</span><span style="color:#a3be8c;">web3</span><span>&#39;
+</span><span style="color:#65737e;">// import { isETHStrAddress } from &#39;./utils.js&#39;
+</span><span style="color:#b48ead;">import </span><span style="color:#d08770;">* </span><span style="color:#b48ead;">as </span><span style="color:#bf616a;">queries </span><span style="color:#b48ead;">from </span><span>&#39;</span><span style="color:#a3be8c;">../queries.js</span><span>&#39;
+</span><span style="color:#b48ead;">import </span><span style="color:#bf616a;">logger </span><span style="color:#b48ead;">from </span><span>&#39;</span><span style="color:#a3be8c;">../../../../lib/logger.js</span><span>&#39;
+</span><span style="color:#b48ead;">import </span><span>{ </span><span style="color:#bf616a;">wallet </span><span>} </span><span style="color:#b48ead;">from </span><span>&#39;</span><span style="color:#a3be8c;">../../../../config.js</span><span>&#39;
+</span><span>
+</span><span style="color:#65737e;">// TODO: wait for x confirmations
+</span><span style="color:#65737e;">// TODO: Handle Ethereum reorgs
+</span><span>
+</span><span style="color:#b48ead;">const </span><span style="color:#bf616a;">log </span><span>= </span><span style="color:#bf616a;">logger</span><span>.</span><span style="color:#8fa1b3;">child</span><span>({ source: &#39;</span><span style="color:#a3be8c;">depositor/shibarium/daemon</span><span>&#39; })
+</span><span>
+</span><span style="color:#b48ead;">const </span><span style="color:#bf616a;">web3 </span><span>= new Web3(&#39;</span><span style="color:#a3be8c;">https://www.shibrpc.com</span><span>&#39;)
+</span><span>
+</span><span style="color:#65737e;">// Contract address of SHIBA INU Token
+</span><span style="color:#b48ead;">const </span><span style="color:#bf616a;">shibContractAddress </span><span>= &#39;</span><span style="color:#a3be8c;">0x495eea66B0f8b636D441dC6a98d8F5C3D455C4c0</span><span>&#39;
+</span><span>  .</span><span style="color:#96b5b4;">toLowerCase</span><span>()
+</span><span>
+</span><span style="color:#b48ead;">const </span><span style="color:#bf616a;">functionSignature </span><span>= &#39;</span><span style="color:#a3be8c;">transfer(address,uint256)</span><span>&#39;
+</span><span>
+</span><span style="color:#65737e;">// if a transaction starts with this function selector its a ERC-20 transfer() call
+</span><span style="color:#65737e;">// 0xa9059cbb
+</span><span style="color:#b48ead;">const </span><span style="color:#bf616a;">functionSelector </span><span>= </span><span style="color:#bf616a;">web3</span><span>.</span><span style="color:#bf616a;">utils</span><span>.</span><span style="color:#8fa1b3;">keccak256</span><span>(</span><span style="color:#bf616a;">functionSignature</span><span>).</span><span style="color:#96b5b4;">substring</span><span>(
+</span><span>  </span><span style="color:#d08770;">0</span><span>,
+</span><span>  </span><span style="color:#d08770;">10</span><span>,
+</span><span>)
+</span><span>
+</span><span style="color:#b48ead;">const </span><span style="color:#bf616a;">LOG_EACH_BLOCKS </span><span>= </span><span style="color:#d08770;">8000
+</span><span>
+</span><span style="color:#b48ead;">const </span><span style="color:#bf616a;">AVERAGE_BLOCK_TIME </span><span>= </span><span style="color:#d08770;">5000
+</span><span>
+</span><span style="color:#b48ead;">const </span><span style="color:#bf616a;">PULL_INTERVAL </span><span>= </span><span style="color:#bf616a;">AVERAGE_BLOCK_TIME
+</span><span>
+</span><span style="color:#65737e;">// when error next pull internal is in x milliseconds
+</span><span style="color:#b48ead;">const </span><span style="color:#bf616a;">ERROR_INTERVAL </span><span>= </span><span style="color:#d08770;">5000
+</span><span>
+</span><span style="color:#b48ead;">let </span><span style="color:#bf616a;">daemonOn </span><span>= </span><span style="color:#bf616a;">wallet</span><span>.</span><span style="color:#bf616a;">depositor</span><span>.</span><span style="color:#bf616a;">on
+</span><span>
+</span><span style="color:#b48ead;">let </span><span style="color:#bf616a;">timeoutId </span><span>= </span><span style="color:#d08770;">null
+</span><span>
+</span><span style="color:#b48ead;">let </span><span style="color:#bf616a;">errorCount </span><span>= </span><span style="color:#d08770;">0
+</span><span>
+</span><span style="color:#b48ead;">export const </span><span style="color:#8fa1b3;">toggleDaemon </span><span>= () </span><span style="color:#b48ead;">=&gt; </span><span>{
+</span><span>  </span><span style="color:#bf616a;">daemonOn </span><span>= !</span><span style="color:#bf616a;">daemonOn
+</span><span>
+</span><span>  </span><span style="color:#b48ead;">if </span><span>(</span><span style="color:#bf616a;">daemonOn</span><span>) {
+</span><span>    </span><span style="color:#8fa1b3;">startBlockLoop</span><span>()
+</span><span>  } </span><span style="color:#b48ead;">else </span><span>{
+</span><span>    </span><span style="color:#96b5b4;">clearTimeout</span><span>(</span><span style="color:#bf616a;">timeoutId</span><span>)
+</span><span>  }
+</span><span>}
+</span><span>
+</span><span style="color:#65737e;">// Initialize with last block in db
+</span><span style="color:#b48ead;">let </span><span style="color:#bf616a;">lastBlockCount </span><span>= -</span><span style="color:#d08770;">1
+</span><span>
+</span><span style="color:#b48ead;">if </span><span>(</span><span style="color:#bf616a;">daemonOn</span><span>) {
+</span><span>  </span><span style="color:#bf616a;">log</span><span>.</span><span style="color:#8fa1b3;">info</span><span>({
+</span><span>    msg: &#39;</span><span style="color:#a3be8c;">starting Shibarium daemon</span><span>&#39;,
+</span><span>    </span><span style="color:#bf616a;">AVERAGE_BLOCK_TIME</span><span>,
+</span><span>    </span><span style="color:#bf616a;">ERROR_INTERVAL</span><span>,
+</span><span>  })
+</span><span>  </span><span style="color:#8fa1b3;">startBlockLoop</span><span>()
+</span><span>}
+</span><span>
+</span><span style="color:#b48ead;">async function </span><span style="color:#8fa1b3;">startBlockLoop</span><span>() {
+</span><span>  </span><span style="color:#bf616a;">log</span><span>.</span><span style="color:#8fa1b3;">debug</span><span>({ msg: &#39;</span><span style="color:#a3be8c;">initializing blook loop with last db block</span><span>&#39; })
+</span><span>
+</span><span>  </span><span style="color:#b48ead;">try </span><span>{
+</span><span>    </span><span style="color:#b48ead;">const </span><span style="color:#bf616a;">lastBlock </span><span>= </span><span style="color:#b48ead;">await </span><span style="color:#bf616a;">queries</span><span>.</span><span style="color:#8fa1b3;">getLastBlock</span><span>()
+</span><span>    </span><span style="color:#bf616a;">log</span><span>.</span><span style="color:#8fa1b3;">debug</span><span>({ msg: &#39;</span><span style="color:#a3be8c;">lastBlock fetched db</span><span>&#39;, </span><span style="color:#bf616a;">lastBlock </span><span>})
+</span><span>    </span><span style="color:#bf616a;">lastBlockCount </span><span>= </span><span style="color:#bf616a;">lastBlock</span><span>.height
+</span><span>
+</span><span>    </span><span style="color:#8fa1b3;">blockLoop</span><span>()
+</span><span>  } </span><span style="color:#b48ead;">catch </span><span>(</span><span style="color:#bf616a;">err</span><span>) {
+</span><span>    </span><span style="color:#bf616a;">log</span><span>.</span><span style="color:#8fa1b3;">error</span><span>({ </span><span style="color:#bf616a;">err</span><span>, notice: &#39;</span><span style="color:#a3be8c;">failed to start block loop</span><span>&#39; })
+</span><span>    </span><span style="color:#65737e;">// crash the server on fail
+</span><span>    </span><span style="color:#b48ead;">throw </span><span style="color:#bf616a;">err
+</span><span>  }
+</span><span>}
+</span><span>
+</span><span style="color:#65737e;">// lapse = pull | error | immediate
+</span><span style="color:#b48ead;">function </span><span style="color:#8fa1b3;">scheduleBlockLoop</span><span>(</span><span style="color:#bf616a;">lapse</span><span>) {
+</span><span>  </span><span style="color:#b48ead;">if </span><span>(!</span><span style="color:#bf616a;">daemonOn</span><span>) {
+</span><span>    </span><span style="color:#bf616a;">log</span><span>.</span><span style="color:#8fa1b3;">debug</span><span>({ msg: &#39;</span><span style="color:#a3be8c;">stopping block loop, next block loop not scheduled</span><span>&#39; })
+</span><span>    </span><span style="color:#b48ead;">return
+</span><span>  }
+</span><span>
+</span><span>  </span><span style="color:#b48ead;">const </span><span style="color:#bf616a;">times </span><span>= {
+</span><span>    pull: </span><span style="color:#bf616a;">PULL_INTERVAL</span><span>,
+</span><span>    error: </span><span style="color:#bf616a;">ERROR_INTERVAL</span><span>,
+</span><span>    immediate: </span><span style="color:#d08770;">1</span><span>,
+</span><span>  }
+</span><span>  </span><span style="color:#b48ead;">const </span><span style="color:#bf616a;">time </span><span>= </span><span style="color:#bf616a;">times</span><span>[</span><span style="color:#bf616a;">lapse</span><span>]
+</span><span>  </span><span style="color:#8fa1b3;">assert</span><span>(</span><span style="color:#bf616a;">time</span><span>)
+</span><span>  </span><span style="color:#bf616a;">log</span><span>.</span><span style="color:#8fa1b3;">debug</span><span>({ msg: `</span><span style="color:#a3be8c;">scheduling blook loop in ${</span><span style="color:#bf616a;">time</span><span style="color:#a3be8c;">}</span><span>` })
+</span><span>
+</span><span>  </span><span style="color:#65737e;">// TEMPORARY
+</span><span>  </span><span style="color:#b48ead;">if </span><span>(</span><span style="color:#bf616a;">lapse </span><span>=== </span><span style="color:#bf616a;">ERROR_INTERVAL</span><span>) {
+</span><span>    </span><span style="color:#bf616a;">log</span><span>.</span><span style="color:#8fa1b3;">info</span><span>({ msg: &#39;</span><span style="color:#a3be8c;">retry disabled, stopping daemon</span><span>&#39; })
+</span><span>    </span><span style="color:#b48ead;">return
+</span><span>  }
+</span><span>
+</span><span>  </span><span style="color:#bf616a;">log</span><span>.</span><span style="color:#8fa1b3;">debug</span><span>({ msg: `</span><span style="color:#a3be8c;">next pull scheduled in ${</span><span style="color:#bf616a;">time</span><span style="color:#a3be8c;">}</span><span>` })
+</span><span>  </span><span style="color:#96b5b4;">setTimeout</span><span>(</span><span style="color:#bf616a;">blockLoop</span><span>, </span><span style="color:#bf616a;">time</span><span>)
+</span><span>}
+</span><span>
+</span><span style="color:#b48ead;">async function </span><span style="color:#8fa1b3;">blockLoop</span><span>() {
+</span><span>  </span><span style="color:#b48ead;">const </span><span style="color:#bf616a;">logf </span><span>= </span><span style="color:#bf616a;">log</span><span>.</span><span style="color:#8fa1b3;">child</span><span>({ fn: &#39;</span><span style="color:#a3be8c;">blockLoop</span><span>&#39; })
+</span><span>  </span><span style="color:#65737e;">// let depositsFound
+</span><span>
+</span><span>  </span><span style="color:#b48ead;">try </span><span>{
+</span><span>    </span><span style="color:#65737e;">// try fetching next block
+</span><span>    </span><span style="color:#b48ead;">let </span><span style="color:#bf616a;">nextBlock </span><span>= </span><span style="color:#d08770;">undefined
+</span><span>    </span><span style="color:#b48ead;">let </span><span style="color:#bf616a;">nextBlockCount </span><span>= </span><span style="color:#bf616a;">lastBlockCount </span><span>+ </span><span style="color:#d08770;">1
+</span><span>    </span><span style="color:#b48ead;">try </span><span>{
+</span><span>      </span><span style="color:#bf616a;">nextBlock </span><span>= </span><span style="color:#b48ead;">await </span><span style="color:#bf616a;">web3</span><span>.</span><span style="color:#bf616a;">eth</span><span>.</span><span style="color:#8fa1b3;">getBlock</span><span>(</span><span style="color:#bf616a;">nextBlockCount</span><span>, </span><span style="color:#d08770;">true</span><span>)
+</span><span>    } </span><span style="color:#b48ead;">catch </span><span>(</span><span style="color:#bf616a;">err</span><span>) {
+</span><span>      </span><span style="color:#8fa1b3;">scheduleBlockLoop</span><span>(&#39;</span><span style="color:#a3be8c;">error</span><span>&#39;)
+</span><span>      </span><span style="color:#b48ead;">return
+</span><span>    }
+</span><span>
+</span><span>    </span><span style="color:#b48ead;">if </span><span>(!</span><span style="color:#bf616a;">nextBlock</span><span>) {
+</span><span>      </span><span style="color:#65737e;">// logf.debug({
+</span><span>      </span><span style="color:#65737e;">//   msg: &#39;no new block, scheduling pull for later&#39;,
+</span><span>      </span><span style="color:#65737e;">//   lastBlockCount,
+</span><span>      </span><span style="color:#65737e;">// })
+</span><span>      </span><span style="color:#8fa1b3;">scheduleBlockLoop</span><span>(&#39;</span><span style="color:#a3be8c;">pull</span><span>&#39;)
+</span><span>      </span><span style="color:#b48ead;">return
+</span><span>    }
+</span><span>
+</span><span>    </span><span style="color:#65737e;">// logf.debug({
+</span><span>    </span><span style="color:#65737e;">//   msg: &#39;fetched new block&#39;,
+</span><span>    </span><span style="color:#65737e;">//   nextBlockCount,
+</span><span>    </span><span style="color:#65737e;">//   nextBlockHash: nextBlock?.hash,
+</span><span>    </span><span style="color:#65737e;">// })
+</span><span>
+</span><span>    </span><span style="color:#b48ead;">await </span><span style="color:#8fa1b3;">processBlock</span><span>(</span><span style="color:#bf616a;">nextBlock</span><span>)
+</span><span>
+</span><span>    </span><span style="color:#b48ead;">await </span><span style="color:#bf616a;">queries</span><span>.</span><span style="color:#8fa1b3;">insertBlock</span><span>(</span><span style="color:#bf616a;">nextBlockCount</span><span>)
+</span><span>    </span><span style="color:#bf616a;">lastBlockCount </span><span>= </span><span style="color:#bf616a;">nextBlockCount
+</span><span>
+</span><span>    </span><span style="color:#b48ead;">if </span><span>(</span><span style="color:#bf616a;">lastBlockCount </span><span>% </span><span style="color:#bf616a;">LOG_EACH_BLOCKS </span><span>=== </span><span style="color:#d08770;">0</span><span>) {
+</span><span>      </span><span style="color:#bf616a;">logf</span><span>.</span><span style="color:#8fa1b3;">notif</span><span>({ msg: `</span><span style="color:#a3be8c;">Block ${</span><span style="color:#bf616a;">lastBlockCount</span><span style="color:#a3be8c;">} processed sucessfully</span><span>` })
+</span><span>    }
+</span><span>  } </span><span style="color:#b48ead;">catch </span><span>(</span><span style="color:#bf616a;">err</span><span>) {
+</span><span>    </span><span style="color:#65737e;">// TODO: check this comments
+</span><span>    </span><span style="color:#65737e;">// if the error is while processing txs some could be process and some could not be
+</span><span>    </span><span style="color:#65737e;">// we just reprocess the block again, anyway is recommended to manually check
+</span><span>    </span><span style="color:#65737e;">// block transactions in db
+</span><span>    </span><span style="color:#65737e;">//
+</span><span>    </span><span style="color:#65737e;">// if the error is while inserting block in db, we need to manually introduce it
+</span><span>    </span><span style="color:#65737e;">//
+</span><span>    </span><span style="color:#65737e;">// TODO: Detect network timeouts and network errors
+</span><span>
+</span><span>    </span><span style="color:#bf616a;">errorCount</span><span>++
+</span><span>
+</span><span>    </span><span style="color:#65737e;">// calls sometimes fail due to network issues
+</span><span>    </span><span style="color:#bf616a;">log</span><span>.</span><span style="color:#8fa1b3;">error</span><span>({
+</span><span>      </span><span style="color:#bf616a;">err</span><span>,
+</span><span>      notice:
+</span><span>        `</span><span style="color:#a3be8c;">failed to process block, scheduling next try in ${</span><span style="color:#bf616a;">ERROR_INTERVAL</span><span style="color:#a3be8c;">}</span><span>`,
+</span><span>      </span><span style="color:#bf616a;">lastBlockCount</span><span>,
+</span><span>      </span><span style="color:#bf616a;">errorCount</span><span>,
+</span><span>    })
+</span><span>
+</span><span>    </span><span style="color:#8fa1b3;">scheduleBlockLoop</span><span>(&#39;</span><span style="color:#a3be8c;">error</span><span>&#39;)
+</span><span>
+</span><span>    </span><span style="color:#b48ead;">return
+</span><span>  }
+</span><span>
+</span><span>  </span><span style="color:#65737e;">// all good, process next block immediately
+</span><span>  </span><span style="color:#65737e;">// log.info({
+</span><span>  </span><span style="color:#65737e;">//   msg: &#39;block processed sucessfully&#39;,
+</span><span>  </span><span style="color:#65737e;">//   depositsFound,
+</span><span>  </span><span style="color:#65737e;">//   blockHeight: lastBlockCount,
+</span><span>  </span><span style="color:#65737e;">// })
+</span><span>  </span><span style="color:#8fa1b3;">scheduleBlockLoop</span><span>(&#39;</span><span style="color:#a3be8c;">immediate</span><span>&#39;)
+</span><span>}
+</span><span>
+</span><span style="color:#65737e;">/**
+</span><span style="color:#65737e;"> * </span><span style="color:#b48ead;">@param </span><span style="color:#65737e;">{Object} </span><span style="color:#bf616a;">block</span><span style="color:#65737e;"> - hydrated block
+</span><span style="color:#65737e;"> * if there&#39;s any error just throw and block will be re-processed
+</span><span style="color:#65737e;"> *
+</span><span style="color:#65737e;"> * TODO: if this functions fails we need to take urgent action
+</span><span style="color:#65737e;"> * is there any way to make it more important?
+</span><span style="color:#65737e;"> * for the time being it should be an error and we treat any error as bug
+</span><span style="color:#65737e;"> */
+</span><span style="color:#b48ead;">async function </span><span style="color:#8fa1b3;">processBlock</span><span>(</span><span style="color:#bf616a;">block</span><span>) {
+</span><span>  </span><span style="color:#b48ead;">const </span><span style="color:#bf616a;">logf </span><span>= </span><span style="color:#bf616a;">log</span><span>.</span><span style="color:#8fa1b3;">child</span><span>({ fn: &#39;</span><span style="color:#a3be8c;">processBlock</span><span>&#39; })
+</span><span>
+</span><span>  </span><span style="color:#65737e;">// logf.debug({ msg: &#39;processing block&#39; })
+</span><span>
+</span><span>  </span><span style="color:#b48ead;">const </span><span style="color:#bf616a;">startDate </span><span>= </span><span style="color:#ebcb8b;">Date</span><span>.</span><span style="color:#8fa1b3;">now</span><span>()
+</span><span>  </span><span style="color:#b48ead;">let </span><span style="color:#bf616a;">depositsFoundAmount </span><span>= </span><span style="color:#d08770;">0
+</span><span>
+</span><span>  </span><span style="color:#b48ead;">if </span><span>(!</span><span style="color:#bf616a;">block</span><span>.</span><span style="color:#bf616a;">transactions</span><span>?.length) {
+</span><span>    </span><span style="color:#b48ead;">return
+</span><span>  }
+</span><span>
+</span><span>  </span><span style="color:#b48ead;">try </span><span>{
+</span><span>    </span><span style="color:#b48ead;">for </span><span>(</span><span style="color:#b48ead;">const </span><span style="color:#bf616a;">shibTx </span><span>of </span><span style="color:#bf616a;">block</span><span>.</span><span style="color:#bf616a;">transactions</span><span>) {
+</span><span>      </span><span style="color:#65737e;">// found ERC-20 transfer() call
+</span><span>      </span><span style="color:#b48ead;">if </span><span>(</span><span style="color:#bf616a;">shibTx</span><span>.input?.</span><span style="color:#96b5b4;">toLowerCase</span><span>().</span><span style="color:#8fa1b3;">startsWith</span><span>(</span><span style="color:#bf616a;">functionSelector</span><span>)) {
+</span><span>        </span><span style="color:#65737e;">// TODO: do all transactions have a to?
+</span><span>        </span><span style="color:#b48ead;">if </span><span>(!</span><span style="color:#bf616a;">shibTx</span><span>.</span><span style="color:#bf616a;">to</span><span>) {
+</span><span>          </span><span style="color:#bf616a;">logf</span><span>.</span><span style="color:#8fa1b3;">warn</span><span>({ msg: &#39;</span><span style="color:#a3be8c;">found transaction without to</span><span>&#39;, </span><span style="color:#bf616a;">shibTx </span><span>})
+</span><span>          </span><span style="color:#b48ead;">continue
+</span><span>        }
+</span><span>
+</span><span>        </span><span style="color:#b48ead;">if </span><span>(</span><span style="color:#bf616a;">shibTx</span><span>.</span><span style="color:#bf616a;">to</span><span>.</span><span style="color:#96b5b4;">toLowerCase</span><span>() === </span><span style="color:#bf616a;">shibContractAddress</span><span>) {
+</span><span>          </span><span style="color:#65737e;">// decode the address and the amount from the contract using eth ABI since its mostly the same
+</span><span>          </span><span style="color:#b48ead;">const </span><span style="color:#bf616a;">decodedData </span><span>= </span><span style="color:#bf616a;">web3</span><span>.</span><span style="color:#bf616a;">eth</span><span>.</span><span style="color:#bf616a;">abi</span><span>.</span><span style="color:#8fa1b3;">decodeParameters</span><span>([
+</span><span>            &#39;</span><span style="color:#a3be8c;">address</span><span>&#39;,
+</span><span>            &#39;</span><span style="color:#a3be8c;">uint256</span><span>&#39;,
+</span><span>          ], </span><span style="color:#bf616a;">shibTx</span><span>.input.</span><span style="color:#96b5b4;">slice</span><span>(</span><span style="color:#d08770;">10</span><span>))
+</span><span>
+</span><span>          </span><span style="color:#b48ead;">const </span><span style="color:#bf616a;">recipientAddress </span><span>= </span><span style="color:#bf616a;">decodedData</span><span>[</span><span style="color:#d08770;">0</span><span>]
+</span><span>          </span><span style="color:#b48ead;">const </span><span style="color:#bf616a;">amountTransferredWei </span><span>= </span><span style="color:#bf616a;">decodedData</span><span>[</span><span style="color:#d08770;">1</span><span>]
+</span><span>          </span><span style="color:#8fa1b3;">assert</span><span>(typeof </span><span style="color:#bf616a;">amountTransferredWei </span><span>=== &#39;</span><span style="color:#a3be8c;">bigint</span><span>&#39;)
+</span><span>
+</span><span>          </span><span style="color:#b48ead;">const </span><span style="color:#bf616a;">userAddress </span><span>= </span><span style="color:#b48ead;">await </span><span style="color:#bf616a;">queries</span><span>.</span><span style="color:#8fa1b3;">getUserAddress</span><span>(</span><span style="color:#bf616a;">recipientAddress</span><span>)
+</span><span>
+</span><span>          </span><span style="color:#65737e;">// if address belong to one of our users :) create a deposit
+</span><span>          </span><span style="color:#b48ead;">if </span><span>(</span><span style="color:#bf616a;">userAddress</span><span>) {
+</span><span>            </span><span style="color:#8fa1b3;">assert</span><span>(</span><span style="color:#bf616a;">userAddress</span><span>.</span><span style="color:#bf616a;">user_id</span><span>)
+</span><span>
+</span><span>            </span><span style="color:#b48ead;">const </span><span style="color:#bf616a;">amountInShib </span><span>= </span><span style="color:#bf616a;">web3</span><span>.</span><span style="color:#bf616a;">utils</span><span>.</span><span style="color:#8fa1b3;">fromWei</span><span>(
+</span><span>              </span><span style="color:#bf616a;">amountTransferredWei</span><span>,
+</span><span>              &#39;</span><span style="color:#a3be8c;">ether</span><span>&#39;,
+</span><span>            )
+</span><span>            </span><span style="color:#8fa1b3;">assert</span><span>(typeof </span><span style="color:#bf616a;">amountInShib </span><span>=== &#39;</span><span style="color:#a3be8c;">string</span><span>&#39;)
+</span><span>
+</span><span>            </span><span style="color:#bf616a;">logf</span><span>.</span><span style="color:#8fa1b3;">notif</span><span>({
+</span><span>              msg: &#39;</span><span style="color:#a3be8c;">recieved user deposit</span><span>&#39;,
+</span><span>              userId: </span><span style="color:#bf616a;">userAddress</span><span>.</span><span style="color:#bf616a;">user_id</span><span>,
+</span><span>              </span><span style="color:#bf616a;">amountInShib</span><span>,
+</span><span>            })
+</span><span>
+</span><span>            </span><span style="color:#b48ead;">await </span><span style="color:#bf616a;">queries</span><span>.</span><span style="color:#8fa1b3;">addDeposit</span><span>(
+</span><span>              </span><span style="color:#bf616a;">userAddress</span><span>.</span><span style="color:#bf616a;">user_id</span><span>,
+</span><span>              </span><span style="color:#bf616a;">shibTx</span><span>.hash,
+</span><span>              </span><span style="color:#bf616a;">amountTransferredWei</span><span>,
+</span><span>            )
+</span><span>
+</span><span>            </span><span style="color:#bf616a;">depositsFoundAmount</span><span>++
+</span><span>          }
+</span><span>        }
+</span><span>      }
+</span><span>    }
+</span><span>  } </span><span style="color:#b48ead;">catch </span><span>(</span><span style="color:#bf616a;">err</span><span>) {
+</span><span>    </span><span style="color:#b48ead;">const </span><span style="color:#bf616a;">seconds </span><span>= (</span><span style="color:#ebcb8b;">Date</span><span>.</span><span style="color:#8fa1b3;">now</span><span>() - </span><span style="color:#bf616a;">startDate</span><span>) / </span><span style="color:#d08770;">1000
+</span><span>    </span><span style="color:#bf616a;">log</span><span>.</span><span style="color:#8fa1b3;">error</span><span>({
+</span><span>      </span><span style="color:#bf616a;">err</span><span>,
+</span><span>      notice: &#39;</span><span style="color:#a3be8c;">error processing transaction ids</span><span>&#39;,
+</span><span>      secondsSpent: </span><span style="color:#bf616a;">seconds</span><span>,
+</span><span>    })
+</span><span>    </span><span style="color:#b48ead;">throw </span><span style="color:#bf616a;">err
+</span><span>  }
+</span><span>
+</span><span>  </span><span style="color:#65737e;">//const seconds = (new Date() - startDate) / 1000
+</span><span>  </span><span style="color:#65737e;">//log.debug({
+</span><span>  </span><span style="color:#65737e;">//  msg: `processed ${transactionsIds.length}`,
+</span><span>  </span><span style="color:#65737e;">//  secondsSpent: seconds,
+</span><span>  </span><span style="color:#65737e;">//})
+</span><span>
+</span><span>  </span><span style="color:#b48ead;">return </span><span style="color:#bf616a;">depositsFoundAmount
+</span><span>}
+</span><span>
+</span><span>
+</span></code></pre>
+
+</main>
+
+
+    </div>
+  </section>
+  <!--/Content-->
+  
+  <footer class="footer p-10 bg-base-200 text-base-content flex justify-evenly">
+    <nav>
+      <h6 class="footer-title">Services</h6> 
+    </nav> 
+    <nav>
+      <h6 class="footer-title">Company</h6> 
+    </nav> 
+    <nav>
+      <h6 class="footer-title">Legal</h6> 
+    </nav>
+  </footer> 
+  <footer class="footer px-10 py-4 border-t bg-base-200 text-base-content border-base-300">
+    <aside class="items-center grid-flow-col"> 
+      <a href="mailto:marsgeeks@gmail.com">
+        <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M21 4H3a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h18a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 4.15l-9 7.02-9-7.02V6l9 7 9-7v2.15z" fill="oklch(74.6477% 0.0216 264.435964 / 1)"/>
+        </svg>   
+      </a>       
+      <p>
+        to Mars Geeks
+      </p>
+    </aside> 
+    <nav class="md:place-self-center md:justify-self-end">
+      <div class="grid grid-flow-col gap-4">
+      </div>
+    </nav>
+  </footer>
+  <script src="https://cdn.jsdelivr.net/npm/theme-change@2.0.2/index.js"></script>
+  <script src="/js/dropdown.js"></script>
+  <script src="/js/dark-mode.js"></script>
+  <script src="/js/headerShowAndHide.js"></script>
+  <script src="/js/formValidations.js"></script>
+</body>
+</html>
