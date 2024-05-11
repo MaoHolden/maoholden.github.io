@@ -78,14 +78,14 @@
 <br>
 <main class="blog-content prose">
   <h1 id="how-to-process-payments-on-shibarium-network-on-node-js">How to process payments on Shibarium Network on Node.js</h1>
-<p><img src="http://cryptodev.com/blog/how-to-process-payments-on-shibarium-network/shib-logo-2x.png" alt="Shibarium Logo" /></p>
+<p><img src="https://maoholden.github.io/blog/how-to-process-payments-on-shibarium-network/shib-logo-2x.png" alt="Shibarium Logo" /></p>
 <p>So, you have your project, and you're eager to start receiving those sweet little tokens, huh?</p>
 <p>The first thing to know is that the Shibarium Layer 2 Blockchain is a fork of the Polygon project (according to some sources on their Discord, as the source code is still private). It operates on the <a href="https://ethereum.org/en/developers/docs/evm/">EVM</a>. All EVM blockchains use the same API for compatibility, although there might be some custom endpoints on paid API providers.</p>
-<p>While researching how to accept payments or receive tokens, I discovered there are actually several ways to achieve this. In this article, we will review each method and analyse their adtanvages and disadvantages. If you wish to skip ahead to the selected solution click <a href="http://cryptodev.com/blog/how-to-process-payments-on-shibarium-network/www.todo.com">here</a>.</p>
+<p>While researching how to accept payments or receive tokens, I discovered there are actually several ways to achieve this. In this article, we will review each method and analyse their adtanvages and disadvantages. If you wish to skip ahead to the selected solution click <a href="https://maoholden.github.io/blog/how-to-process-payments-on-shibarium-network/www.todo.com">here</a>.</p>
 <p>There are a multitude of reasons why a user would transfer tokens to your DApp, but some of the most common are: 1) you are selling goods, and 2) your user has a balance and wants to deposit (as seen in games). In my case I want my users to have a balance and be able to deposit and withdraw, but it shouldn't be too complex to adapt these ideas to a different use case.</p>
 <p>Note that for all examples the client need to <a href="https://www.youtube.com/watch?v=RQk-Q_hNpkE">add shibarium network to their Metamask</a> first.</p>
 <h2 id="let-the-client-notify-you-when-the-payment-is-done">Let the client notify you when the payment is done</h2>
-<p><img src="http://cryptodev.com/blog/how-to-process-payments-on-shibarium-network/client-notif-payment-done-diag.png" alt="Diagram" /></p>
+<p><img src="https://maoholden.github.io/blog/how-to-process-payments-on-shibarium-network/client-notif-payment-done-diag.png" alt="Diagram" /></p>
 <p>As shown in the diagram this method depends on the server creating and tracking invoices and the client to be able to report back the transaction id to the server after the transaction is confirmed. </p>
 <p>The problem with this method is that the client App is responsible to report back the Tx Id to the server. Which means that our App must be connected to the user's wallet like in Metamask. If the user wants to use a different wallet to send us tokens, our App won't have access to the transaction Id.</p>
 <p>On the other hand if the app actually makes the transaction and then there is an error, a system to &quot;recover&quot; transfers should be implemented.</p>

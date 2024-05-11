@@ -1,4 +1,4 @@
 User-agent: *
 Disallow:
 Allow: /
-Sitemap: http://cryptodev.com/sitemap.xml
+Sitemap: https://maoholden.github.io/sitemap.xml
